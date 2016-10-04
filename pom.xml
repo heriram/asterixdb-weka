@@ -18,6 +18,7 @@
     </licenses>
     <properties>
         <local.asterix.dir>/Users/thormartin/asterixdb/asterixdb</local.asterix.dir>
+        <local.hyracks.dir>/Users/thormartin/asterixdb/hyracks-fullstack</local.hyracks.dir>
         <managix.home>/Users/thormartin/managix</managix.home>
         <local.library>${project.basedir}/lib</local.library>
         <asterix.version>0.8.9-SNAPSHOT</asterix.version>
@@ -84,16 +85,22 @@
             <groupId>org.apache.hyracks</groupId>
             <artifactId>algebricks-common</artifactId>
             <version>0.2.18-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${local.hyracks.dir}/algebricks/algebricks-common/target/algebricks-common-0.2.18-SNAPSHOT.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.apache.hyracks</groupId>
             <artifactId>hyracks-dataflow-std</artifactId>
             <version>0.2.18-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${local.hyracks.dir}/hyracks/hyracks-dataflow-std/target/hyracks-dataflow-std-0.2.18-SNAPSHOT.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.apache.hyracks</groupId>
             <artifactId>hyracks-control-nc</artifactId>
             <version>0.2.18-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${local.hyracks.dir}/hyracks/hyracks-control/hyracks-control-nc/target/hyracks-control-nc-0.2.18-SNAPSHOT.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.twitter4j</groupId>
