@@ -22,7 +22,7 @@ EOF
 RESTART=false
 STOP=false
 INSTALL_LIB=false
-SOURCE=/Users/heri/git/apache/asterix-machine-learning
+SOURCE=/Users/thormartin/asterix-machine-learning
 REMOVE=false
 
 if [[ $# <  1 ]]

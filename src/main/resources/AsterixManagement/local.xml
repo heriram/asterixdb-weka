@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <cluster xmlns="cluster">
     <java_home>/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre</java_home>
-    <log_dir>/Users/heri/asterix-master-mgmt/clusters/local/working_dir/logs</log_dir>
-    <txn_log_dir>/Users/heri/asterix-master-mgmt/clusters/local/working_dir/txnLogs</txn_log_dir>
+    <log_dir>/Users/thormartin/managix/clusters/local/working_dir/logs</log_dir>
+    <txn_log_dir>/Users/thormartin/managix/clusters/local/working_dir/txnLogs</txn_log_dir>
     <store>storage</store>
     <working_dir>
-        <dir>/Users/heri/asterix-master-mgmt/clusters/local/working_dir</dir>
+        <dir>/Users/thormartin/managix/clusters/local/working_dir</dir>
         <NFS>true</NFS>
     </working_dir>
     <master_node>
@@ -20,15 +20,15 @@
     <node>
         <id>nc1</id>
         <cluster_ip>127.0.0.1</cluster_ip>
-        <txn_log_dir>/Users/heri/asterix-master-mgmt/clusters/local/working_dir/nc1/txnLogs</txn_log_dir>
-        <iodevices>/Users/heri/asterix-master-mgmt/clusters/local/working_dir/nc1/p1,/Users/heri/asterix-master-mgmt/clusters/local/working_dir/nc1/p2</iodevices>
+        <txn_log_dir>/Users/thormartin/managix/clusters/local/working_dir/nc1/txnLogs</txn_log_dir>
+        <iodevices>/Users/thormartin/managix/clusters/local/working_dir/nc1/p1,/Users/thormartin/managix/clusters/local/working_dir/nc1/p2</iodevices>
         <debug_port>8701</debug_port>
     </node>
     <node>
         <id>nc2</id>
         <cluster_ip>127.0.0.1</cluster_ip>
-        <txn_log_dir>/Users/heri/asterix-master-mgmt/clusters/local/working_dir/nc2/txnLogs</txn_log_dir>
-        <iodevices>/Users/heri/asterix-master-mgmt/clusters/local/working_dir/nc2/p1,/Users/heri/asterix-master-mgmt/clusters/local/working_dir/nc2/p2</iodevices>
+        <txn_log_dir>/Users/thormartin/managix/clusters/local/working_dir/nc2/txnLogs</txn_log_dir>
+        <iodevices>/Users/thormartin/managix/clusters/local/working_dir/nc2/p1,/Users/thormartin/managix/clusters/local/working_dir/nc2/p2</iodevices>
         <debug_port>8702</debug_port>
     </node>
     <heartbeat_period>10000</heartbeat_period>

@@ -17,8 +17,8 @@
         </license>
     </licenses>
     <properties>
-        <local.asterix.dir>/Users/heri/git/apache/asterixdb/asterixdb</local.asterix.dir>
-        <managix.home>/Users/heri/asterix-master-mgmt</managix.home>
+        <local.asterix.dir>/Users/thormartin/asterixdb/asterixdb</local.asterix.dir>
+        <managix.home>/Users/thormartin/managix</managix.home>
         <local.library>${project.basedir}/lib</local.library>
         <asterix.version>0.8.9-SNAPSHOT</asterix.version>
     </properties>
