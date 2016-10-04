@@ -103,6 +103,34 @@
             <systemPath>${local.hyracks.dir}/hyracks/hyracks-control/hyracks-control-nc/target/hyracks-control-nc-0.2.18-SNAPSHOT.jar</systemPath>
         </dependency>
         <dependency>
+            <groupId>org.apache.hyracks</groupId>
+            <artifactId>hyracks-api</artifactId>
+            <version>0.2.18-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${local.hyracks.dir}/hyracks/hyracks-api/target/hyracks-api-0.2.18-SNAPSHOT.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hyracks</groupId>
+            <artifactId>hyracks-dataflow-common</artifactId>
+            <version>0.2.18-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${local.hyracks.dir}/hyracks/hyracks-dataflow-common/target/hyracks-dataflow-common-0.2.18-SNAPSHOT.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hyracks</groupId>
+            <artifactId>hyracks-control-common</artifactId>
+            <version>0.2.18-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${local.hyracks.dir}/hyracks/hyracks-control/hyracks-control-common/target/hyracks-control-common-0.2.18-SNAPSHOT.jar</systemPath>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20160810</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.twitter4j</groupId>
             <artifactId>twitter4j-core</artifactId>
             <version>[3.0,)</version>
