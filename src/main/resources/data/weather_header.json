@@ -1,0 +1,54 @@
+{
+	"header" : {
+		"relation" : "weather",
+		"attributes" : [
+			{
+				"name" : "outlook",
+				"type" : "nominal",
+				"class" : false,
+				"weight" : 1.0,
+				"labels" : [
+					"sunny",
+					"overcast",
+					"rainy"
+				]
+			},
+			{
+				"name" : "temperature",
+				"type" : "numeric",
+				"class" : false,
+				"weight" : 1.0
+			},
+			{
+				"name" : "humidity",
+				"type" : "numeric",
+				"class" : false,
+				"weight" : 1.0
+			},
+			{
+				"name" : "windy",
+				"type" : "nominal",
+				"class" : false,
+				"weight" : 1.0,
+				"labels" : [
+					"TRUE",
+					"FALSE"
+				]
+			},
+			{
+				"name" : "play",
+				"type" : "nominal",
+				"class" : true,
+				"weight" : 1.0,
+				"labels" : [
+					"yes",
+					"no"
+				]
+			}
+		]
+	},
+	"data" : [
+	],
+	"class-index": 4
+}
+
