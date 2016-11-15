@@ -21,11 +21,11 @@ package org.apache.asterix.external.feed.ml.classification.udf;
 import org.apache.asterix.external.api.IExternalScalarFunction;
 import org.apache.asterix.external.api.IFunctionFactory;
 
-public class WekaClassifierFactory implements IFunctionFactory {
+public class FeatureClassifierFactory implements IFunctionFactory {
 
     @Override
     public IExternalScalarFunction getExternalFunction() {
-        return new WekaClassifierFunction();
+        return new FeatureClassifierFunction();
     }
 
 }

@@ -3,10 +3,10 @@
 	<libraryFunctions>
 		<libraryFunction>
 			<function_type>SCALAR</function_type>
-			<name>classifyWeather</name>
+			<name>classifyFeatures</name>
 			<arguments>FeatureType</arguments>
 			<return_type>FeatureType</return_type>
-			<definition>org.apache.asterix.external.feed.ml.classification.udf.WekaClassifierFactory</definition>
+			<definition>org.apache.asterix.external.feed.ml.classification.udf.FeatureClassifierFactory</definition>
 		</libraryFunction>
 		<libraryFunction>
 			<function_type>SCALAR</function_type>

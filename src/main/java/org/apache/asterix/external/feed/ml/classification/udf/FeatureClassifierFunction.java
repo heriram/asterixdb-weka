@@ -25,7 +25,6 @@ import org.apache.asterix.external.api.IExternalScalarFunction;
 import org.apache.asterix.external.api.IFunctionHelper;
 import org.apache.asterix.external.api.IJObject;
 import org.apache.asterix.external.feed.ml.classification.InstanceClassifier;
-import org.apache.asterix.external.feed.ml.classification.udf.tests.ClassifierTestFunction;
 import org.apache.asterix.external.library.java.JObjects;
 import org.apache.asterix.external.library.java.JObjects.JRecord;
 import org.apache.asterix.external.library.java.JObjects.JString;
@@ -36,8 +35,18 @@ import weka.core.Attribute;
 import weka.core.DenseInstance;
 import weka.core.Instance;
 
-public class WekaClassifierFunction implements IExternalScalarFunction {
-    private static final Logger LOGGER = Logger.getLogger(ClassifierTestFunction.class.getName());
+/**
+ * INPUT: FeatureType OPEN { id: int, terms: double, topics: double, tags: double, links: double, sentiment: double }
+ * OUTPUT: FeatureType OPEN { -|all-of-the-above|-, class: string }
+ *
+ * Create an instanceHolder with alle the provided fields as attributes
+ * Classify instanceHolder
+ * Return original record plus class-attribute
+ *
+ */
+
+public class FeatureClassifierFunction implements IExternalScalarFunction {
+    private static final Logger LOGGER = Logger.getLogger(FeatureClassifierFunction.class.getName());
     private InstanceClassifier instanceClassifier;
     private Instance instanceHolder;
     private int classIndex;
@@ -52,14 +61,16 @@ public class WekaClassifierFunction implements IExternalScalarFunction {
     @Override
     public void initialize(IFunctionHelper functionHelper) throws Exception {
         //TODO Get the necessary files
-        String modelFile = "data/RANDOM_FOREST.model";
-        String featureHeader = "data/weather_header.json";
+        String modelFile = "data/models/J48.model";
+        String featureHeader = "data/twitter_header.json";
+        //String modelFile = "data/models/RANDOM_FOREST.model";
+        //String featureHeader = "data/weather_header.json";
 
         LOGGER.info("Initialiazing the classifier function using: " + modelFile + " model, and " + featureHeader + " "
                 + "header file.");
 
-        InputStream headerInputStream = WekaClassifierFunction.class.getClassLoader().getResourceAsStream(featureHeader);
-        InputStream modelInputStream = WekaClassifierFunction.class.getClassLoader().getResourceAsStream(modelFile);
+        InputStream headerInputStream = FeatureClassifierFunction.class.getClassLoader().getResourceAsStream(featureHeader);
+        InputStream modelInputStream = FeatureClassifierFunction.class.getClassLoader().getResourceAsStream(modelFile);
 
         instanceClassifier = new InstanceClassifier(modelInputStream, headerInputStream);
         instanceHolder = new DenseInstance(instanceClassifier.getDatasetHeader().numAttributes());
@@ -78,7 +89,9 @@ public class WekaClassifierFunction implements IExternalScalarFunction {
         }
 
         boolean containsClassAttributeField = getInstanceFromRecord(inputRecord);
+
         JString classValueString = (JString) functionHelper.getObject(JTypeTag.STRING);
+
         classValueString.setValue(instanceClassifier.classify(instanceHolder));
 
         if (containsClassAttributeField) {
@@ -88,6 +101,7 @@ public class WekaClassifierFunction implements IExternalScalarFunction {
         }
 
         functionHelper.setResult(outputRecord);
+
     }
 
     private boolean getInstanceFromRecord(JRecord inputRecord) throws AsterixException {
