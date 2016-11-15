@@ -77,8 +77,9 @@ public class Tokenizer extends AbstractTokenizer {
 
                     break;
                 default:
-                    if ((c >= toDigit(0) && c <= toDigit(9)) || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
-                            || (c >= 0x00C0 && c <= 0x00F6) || (c >= 0x00F8 && c <= 0x02AF)) {
+                    //if ((c >= toDigit(0) && c <= toDigit(9)) || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
+                    //        || (c >= 0x00C0 && c <= 0x00F6) || (c >= 0x00F8 && c <= 0x02AF)) {
+                    if (isLetterOrDigit(c)) {
                         wordBuff[index] = c;
                         index++;
                     }
@@ -109,5 +110,14 @@ public class Tokenizer extends AbstractTokenizer {
     public String[] tokenize(String text) {
         String tokens[] = tokenize(text, true);
         return tokens;
+    }
+
+    public static void main(String[] args) {
+        Tokenizer tokenizer = new Tokenizer();
+        String testString = "   Hello, World! This is a pretty' looooong _ string with #reference and @tag";
+        String[] result = tokenizer.tokenize(testString, true);
+        for (String token : result) {
+            System.out.println(token);
+        }
     }
 }
