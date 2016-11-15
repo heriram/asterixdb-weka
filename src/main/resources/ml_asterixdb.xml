@@ -2,27 +2,6 @@
 	<language>JAVA</language>
 	<libraryFunctions>
 		<libraryFunction>
-		<function_type>SCALAR</function_type>
-			<name>testFunction</name>
-            <arguments>CountryCapitalType</arguments>
-            <return_type>CountryCapitalType</return_type>
-			<definition>org.apache.asterix.external.feed.ml.classification.udf.tests.ClassifierTestFactory</definition>
-		</libraryFunction>
-        <libraryFunction>
-            <function_type>SCALAR</function_type>
-            <name>toUpper</name>
-            <arguments>TextType</arguments>
-            <return_type>TextType</return_type>
-            <definition>org.apache.asterix.external.feed.ml.classification.udf.tests.UpperCaseFactory</definition>
-        </libraryFunction>
-        <libraryFunction>
-		<function_type>SCALAR</function_type>
-            <name>getCapital</name>
-            <arguments>ASTRING</arguments>
-            <return_type>CountryCapitalType</return_type>
-		    <definition>org.apache.asterix.external.feed.ml.classification.udf.tests.CapitalFinderFactory</definition>
-		</libraryFunction>
-		<libraryFunction>
 			<function_type>SCALAR</function_type>
 			<name>classifyWeather</name>
 			<arguments>FeatureType</arguments>
