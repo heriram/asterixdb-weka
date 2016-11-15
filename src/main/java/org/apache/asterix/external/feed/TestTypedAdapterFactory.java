@@ -102,14 +102,14 @@ public class TestTypedAdapterFactory implements IAdapterFactory {
                         try {
                             parser.setInputStream(in);
                             forwarder.initialize(ctx, writer);
-                            while (true) {
+                            /*while (true) {
                                 tb.reset();
                                 if (!parser.parse(tb.getDataOutput())) {
                                     break;
                                 }
                                 tb.addFieldEndOffset();
                                 forwarder.addTuple(tb);
-                            }
+                            }*/
                             forwarder.close();
                         } catch (Exception e) {
                             throw new HyracksDataException(e);
