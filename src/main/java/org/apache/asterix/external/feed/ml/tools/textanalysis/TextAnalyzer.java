@@ -80,8 +80,8 @@ public class TextAnalyzer {
                 return false;
             return true;
         }
-
     }
+
 
     private int length;
     private int maxTf = 0;
@@ -192,14 +192,18 @@ public class TextAnalyzer {
     public static void main(String[] args) {
         TextAnalyzer analyzer = new TextAnalyzer();
         TextAnalyzer stemAnalyzer = new TextAnalyzer(Tokenizer.INSTANCE, new PorterStemmer());
-        String test = "@johnsmith: this is a test of this new #tokenizer. It won't be bad if this test works as good "
-                + "Big-Data.";
+        String test = "@johnsmith: this is a test of this new #tokenizer. It won't be bad if this test works as #good "
+                + "Big-Data tests. http://link.com or www.link.com";
         analyzer.analyze(test);
         stemAnalyzer.analyze(test);
 
         Term tokens[] = analyzer.getTerms();
         Term stems[] = stemAnalyzer.getTerms();
         System.out.println("Un-stemmed tokens: " + Arrays.toString(tokens) + ".\n Stems: " + Arrays.toString(stems));
+
+        Features fe = new Features();
+        fe.check(stems);
+        System.out.println(fe);
     }
 
 }
