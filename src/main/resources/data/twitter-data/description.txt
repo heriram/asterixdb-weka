@@ -1,0 +1,19 @@
+Twitter Corpus used: http://help.sentiment140.com/for-students/
+Download link: http://cs.stanford.edu/people/alecmgo/trainingandtestdata.zip
+
+The original data is a CSV with emoticons removed. Data file format has 6 fields:
+0 - the polarity of the tweet (0 = negative, 2 = neutral, 4 = positive)
+1 - the id of the tweet (2087)
+2 - the date of the tweet (Sat May 16 23:58:44 UTC 2009)
+3 - the query (lyx). If there is no query, then this value is NO_QUERY.
+4 - the user that tweeted (robotickilldozr)
+5 - the text of the tweet (Lyx is cool)
+
+This has been processed based on polarity (field 0) and divided into full-positive.txt and full-negative.txt.
+Only the text-field was kept (field 5).
+
+Each of full-negative.txt and full-positive.txt contains 800'000 lines (tweets)
+The files negative.txt and positive.txt is a subset of these files (the top N lines),
+chosen in different intervals to measure performance.
+
+The files negative.txt and positive.txt is the one used to train the model.

@@ -1,0 +1,50 @@
+{
+	"header" : {
+		"relation" : "tweets",
+		"attributes" : [
+			{
+				"name" : "terms",
+				"type" : "numeric",
+				"class" : false,
+				"weight" : 1.0
+			},
+			{
+				"name" : "topics",
+				"type" : "numeric",
+				"class" : false,
+				"weight" : 1.0
+			},
+			{
+				"name" : "tags",
+				"type" : "numeric",
+				"class" : false,
+				"weight" : 1.0
+			},
+			{
+				"name" : "links",
+				"type" : "numeric",
+				"class" : false,
+				"weight" : 1.0
+			},
+			{
+				"name" : "sentiment",
+				"type" : "numeric",
+				"class" : false,
+				"weight" : 1.0
+			},
+			{
+				"name" : "class",
+				"type" : "nominal",
+				"class" : true,
+				"weight" : 1.0,
+				"labels" : [
+					"positive",
+					"negative"
+				]
+			}
+		]
+	},
+	"data" : [
+	]
+}
+
