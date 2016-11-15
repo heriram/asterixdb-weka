@@ -10,10 +10,10 @@
 		</libraryFunction>
 		<libraryFunction>
 			<function_type>SCALAR</function_type>
-			<name>classifySentiment</name>
-			<arguments>Tweet</arguments>
-			<return_type>ProcessedTweet</return_type>
-			<definition>org.apache.asterix.external.feed.ml.classification.udf.tests.ClassifierTestFactory</definition>
+			<name>classifyText</name>
+			<arguments>TextType</arguments>
+			<return_type>TextType</return_type>
+			<definition>org.apache.asterix.external.feed.ml.classification.udf.TextClassifierFactory</definition>
 		</libraryFunction>
 	</libraryFunctions>
 	<libraryAdapters>
