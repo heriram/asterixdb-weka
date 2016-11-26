@@ -62,8 +62,8 @@ public class ArffWriter {
         TextAnalyzer analyzer = new TextAnalyzer();
         Features features = new Features();
 
-        String negative = "/Users/thormartin/asterix-machine-learning/src/main/resources/data/twitter-data/negative.txt";
-        String positive = "/Users/thormartin/asterix-machine-learning/src/main/resources/data/twitter-data/positive.txt";
+        String negative = "/Users/thormartin/asterix-machine-learning/src/main/resources/data/twitter-data/training/negative.txt";
+        String positive = "/Users/thormartin/asterix-machine-learning/src/main/resources/data/twitter-data/training/positive.txt";
 
         for (String file : Arrays.asList(negative, positive)) {
 
@@ -74,7 +74,7 @@ public class ArffWriter {
                     analyzer.analyze(line);
                     Term tokens[] = analyzer.getTerms();
                     features.check(tokens);
-                    String classValue = file.substring(80,88);
+                    String classValue = file.substring((file.lastIndexOf(".")-8),file.lastIndexOf("."));
                     String featureValues = Arrays.toString(features.getFeatureValues()).replaceAll("\\[|\\]| |\\s", "");
                     featuresList.add(featureValues + "," + classValue);
                 }
