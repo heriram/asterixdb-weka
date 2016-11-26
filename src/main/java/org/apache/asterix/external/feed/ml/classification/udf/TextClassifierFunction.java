@@ -29,11 +29,8 @@ public class TextClassifierFunction implements IExternalScalarFunction {
     private static final Logger LOGGER = Logger.getLogger(TextClassifierFunction.class.getName());
     private InstanceClassifier instanceClassifier;
     private Instance instanceHolder;
-    private int classIndex;
     private Features features;
     private TextAnalyzer analyzer;
-
-    private final String PRIMARY_KEY_NAME = "id";
 
     @Override
     public void deinitialize() {
@@ -51,7 +48,6 @@ public class TextClassifierFunction implements IExternalScalarFunction {
 
         instanceClassifier = new InstanceClassifier(modelInputStream, headerInputStream);
         instanceHolder = new DenseInstance(instanceClassifier.getDatasetHeader().numAttributes());
-        classIndex = instanceClassifier.getDatasetHeader().classIndex();
 
         this.features = new Features();
         this.analyzer = new TextAnalyzer();
@@ -69,39 +65,26 @@ public class TextClassifierFunction implements IExternalScalarFunction {
         }
 
         JObjects.JString text = (JObjects.JString) inputRecord.getValueByName("text");
-
-        boolean containsClassAttributeField = extractFeatures(text.getValue());
+        extractFeatures(text.getValue());
         JObjects.JString classValueString = (JObjects.JString) functionHelper.getObject(JTypeTag.STRING);
         classValueString.setValue(instanceClassifier.classify(instanceHolder));
 
-        if (containsClassAttributeField) {
-            outputRecord.setField(instanceHolder.classAttribute().name(), classValueString);
-        } else {
-            outputRecord.addField(instanceHolder.classAttribute().name(), classValueString);
-        }
+        outputRecord.addField(instanceHolder.classAttribute().name(), classValueString);
 
         functionHelper.setResult(outputRecord);
 
     }
 
-    private boolean extractFeatures(String text) {
+    private void extractFeatures(String text) {
         analyzer.analyze(text);
         TextAnalyzer.Term tokens[] = analyzer.getTerms();
         features.check(tokens);
-        System.out.println("\t DEBUG \t FEATURES \t" + features.getFeatureValues());
 
-        String featureNames[] = features.getFeatureNames();
-        String featureTypes[] = features.getFeatureTypes();
         Integer featureValues[] = features.getFeatureValues();
 
-        for (int i = 0; i < featureNames.length; i++) {
-            Attribute attribute = new Attribute(featureNames[i]);
-            System.out.println("\t \t DEBUG \t ATTRIBUTES \t" + attribute);
+        for (int i = 0; i < featureValues.length; i++) {
             JObjects.JDouble value = new JObjects.JDouble(featureValues[i]);
-            System.out.println("\t \t DEBUG \t VALUE \t" + value.getValue());
             instanceHolder.setValue(i, value.getValue());
         }
-        return false;
-
     }
 }
