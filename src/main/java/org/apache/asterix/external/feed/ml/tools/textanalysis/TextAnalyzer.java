@@ -94,6 +94,8 @@ public class TextAnalyzer {
 
     private PorterStemmer stemmer = null;
 
+    private Features features;
+
     public TextAnalyzer() {
         this(Tokenizer.INSTANCE, null);
     }
@@ -102,6 +104,7 @@ public class TextAnalyzer {
         this.tokenizer = tokenizer;
         termVector = new HashMap<>();
         this.stemmer = stemmer;
+        this.features = new Features();
     }
 
     ITokenizer getTokenizer() {
@@ -187,6 +190,20 @@ public class TextAnalyzer {
             terms[i] = new Term(e.getKey(), e.getValue());
             i++;
         }
+
+        features.check(terms);
+    }
+
+    public Integer[] getFeatureValues() {
+        return features.getFeatureValues();
+    }
+
+    public String[] getFeatureNames() {
+        return features.getFeatureNames();
+    }
+
+    public String[] getFeatureTypes() {
+        return features.getFeatureTypes();
     }
 
     public static void main(String[] args) {
@@ -201,9 +218,7 @@ public class TextAnalyzer {
         Term stems[] = stemAnalyzer.getTerms();
         System.out.println("Un-stemmed tokens: " + Arrays.toString(tokens) + ".\n Stems: " + Arrays.toString(stems));
 
-        Features fe = new Features();
-        fe.check(stems);
-        System.out.println(fe);
+        System.out.println(analyzer.features);
     }
 
 }

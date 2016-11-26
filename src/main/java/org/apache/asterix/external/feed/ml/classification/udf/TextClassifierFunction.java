@@ -29,7 +29,6 @@ public class TextClassifierFunction implements IExternalScalarFunction {
     private static final Logger LOGGER = Logger.getLogger(TextClassifierFunction.class.getName());
     private InstanceClassifier instanceClassifier;
     private Instance instanceHolder;
-    private Features features;
     private TextAnalyzer analyzer;
 
     @Override
@@ -49,7 +48,6 @@ public class TextClassifierFunction implements IExternalScalarFunction {
         instanceClassifier = new InstanceClassifier(modelInputStream, headerInputStream);
         instanceHolder = new DenseInstance(instanceClassifier.getDatasetHeader().numAttributes());
 
-        this.features = new Features();
         this.analyzer = new TextAnalyzer();
     }
 
@@ -77,10 +75,8 @@ public class TextClassifierFunction implements IExternalScalarFunction {
 
     private void extractFeatures(String text) {
         analyzer.analyze(text);
-        TextAnalyzer.Term tokens[] = analyzer.getTerms();
-        features.check(tokens);
 
-        Integer featureValues[] = features.getFeatureValues();
+        Integer featureValues[] = analyzer.getFeatureValues();
 
         for (int i = 0; i < featureValues.length; i++) {
             JObjects.JDouble value = new JObjects.JDouble(featureValues[i]);

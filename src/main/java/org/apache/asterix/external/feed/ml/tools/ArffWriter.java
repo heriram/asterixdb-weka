@@ -60,7 +60,6 @@ public class ArffWriter {
 
         List<String> featuresList = new ArrayList<>();
         TextAnalyzer analyzer = new TextAnalyzer();
-        Features features = new Features();
 
         String negative = "/Users/thormartin/asterix-machine-learning/src/main/resources/data/twitter-data/training/negative.txt";
         String positive = "/Users/thormartin/asterix-machine-learning/src/main/resources/data/twitter-data/training/positive.txt";
@@ -72,10 +71,8 @@ public class ArffWriter {
                 String line;
                 while ((line = br.readLine()) != null) {
                     analyzer.analyze(line);
-                    Term tokens[] = analyzer.getTerms();
-                    features.check(tokens);
                     String classValue = file.substring((file.lastIndexOf(".")-8),file.lastIndexOf("."));
-                    String featureValues = Arrays.toString(features.getFeatureValues()).replaceAll("\\[|\\]| |\\s", "");
+                    String featureValues = Arrays.toString(analyzer.getFeatureValues()).replaceAll("\\[|\\]| |\\s", "");
                     featuresList.add(featureValues + "," + classValue);
                 }
 
@@ -84,7 +81,7 @@ public class ArffWriter {
         }
         ArffWriter a = new ArffWriter();
         String relation = a.createRelation("tweets");
-        String attributes = a.createAttributes(features.getFeatureNames(), features.getFeatureTypes());
+        String attributes = a.createAttributes(analyzer.getFeatureNames(), analyzer.getFeatureTypes());
         String classAttribute = a.createAttribute("class", "{positive, negative}");
         String data = a.createData(featuresList);
         List<String> lines = Arrays.asList(relation, attributes, classAttribute, data);
