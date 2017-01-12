@@ -37,7 +37,7 @@ public class Features {
         return new Integer[] {this.terms, this.topics, this.tags, this.links, this.sentiment};
     }
 
-    public void check(String token, int frequency) {
+    public void extract(String token, int frequency) {
         int topicSentimentWeight = 2;
 
         this.terms += (frequency > 0 ? frequency : 1);
@@ -55,10 +55,10 @@ public class Features {
         }
     }
 
-    public void check(Term terms[]) {
+    public void extract(Term terms[]) {
         this.reset();
         for (Term term : terms) {
-            check(term.getTerm(), term.getFrequence());
+            extract(term.getTerm(), term.getFrequence());
         }
     }
 

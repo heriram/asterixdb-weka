@@ -191,7 +191,7 @@ public class TextAnalyzer {
             i++;
         }
 
-        features.check(terms);
+        features.extract(terms);
     }
 
     public Integer[] getFeatureValues() {
