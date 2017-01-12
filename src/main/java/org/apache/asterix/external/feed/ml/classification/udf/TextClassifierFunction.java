@@ -4,15 +4,15 @@ import org.apache.asterix.external.api.IExternalScalarFunction;
 import org.apache.asterix.external.api.IFunctionHelper;
 import org.apache.asterix.external.api.IJObject;
 import org.apache.asterix.external.feed.ml.classification.InstanceClassifier;
-import org.apache.asterix.external.feed.ml.tools.textanalysis.Features;
+import org.apache.asterix.external.feed.ml.tools.textanalysis.IFeature;
 import org.apache.asterix.external.feed.ml.tools.textanalysis.TextAnalyzer;
 import org.apache.asterix.external.library.java.JObjects;
 import org.apache.asterix.external.library.java.JTypeTag;
-import weka.core.Attribute;
 import weka.core.DenseInstance;
 import weka.core.Instance;
 
 import java.io.InputStream;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -76,11 +76,16 @@ public class TextClassifierFunction implements IExternalScalarFunction {
     private void extractFeatures(String text) {
         analyzer.analyze(text);
 
-        Integer featureValues[] = analyzer.getFeatureValues();
+        List<IFeature> features = analyzer.getFeatures().getFeatureList();
 
-        for (int i = 0; i < featureValues.length; i++) {
-            JObjects.JDouble value = new JObjects.JDouble(featureValues[i]);
-            instanceHolder.setValue(i, value.getValue());
+        for (int i = 0; i < features.size(); i++) {
+            IFeature feature = features.get(i);
+
+            if (feature.getType().equals("numeric")) {
+                JObjects.JDouble value = new JObjects.JDouble((Integer)feature.getValue());
+                instanceHolder.setValue(i, value.getValue());
+            }
         }
+
     }
 }

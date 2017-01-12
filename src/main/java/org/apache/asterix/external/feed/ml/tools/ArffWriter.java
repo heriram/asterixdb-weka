@@ -2,7 +2,6 @@ package org.apache.asterix.external.feed.ml.tools;
 
 import org.apache.asterix.external.feed.ml.tools.textanalysis.Features;
 import org.apache.asterix.external.feed.ml.tools.textanalysis.TextAnalyzer;
-import org.apache.asterix.external.feed.ml.tools.textanalysis.TextAnalyzer.Term;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -28,10 +27,10 @@ public class ArffWriter {
         return "@attribute " + name + " " + type;
     }
 
-    public String createAttributes(String[] names, String[] types) {
+    public String createAttributes(List<String> names, List<String> types) {
         String result = "\n";
-        for (int i = 0; i < names.length; i++) {
-            result += createAttribute(names[i], types[i]);
+        for (int i = 0; i < names.size(); i++) {
+            result += createAttribute(names.get(i), types.get(i));
             result += "\n";
         }
         return result;
@@ -71,8 +70,9 @@ public class ArffWriter {
                 String line;
                 while ((line = br.readLine()) != null) {
                     analyzer.analyze(line);
+                    Features features = analyzer.getFeatures();
                     String classValue = file.substring((file.lastIndexOf(".")-8),file.lastIndexOf("."));
-                    String featureValues = Arrays.toString(analyzer.getFeatureValues()).replaceAll("\\[|\\]| |\\s", "");
+                    String featureValues = features.getFeatureValues().toString().replaceAll("\\[|\\]| |\\s", "");
                     featuresList.add(featureValues + "," + classValue);
                 }
 
@@ -80,8 +80,9 @@ public class ArffWriter {
 
         }
         ArffWriter a = new ArffWriter();
+        Features features = analyzer.getFeatures();
         String relation = a.createRelation("tweets");
-        String attributes = a.createAttributes(analyzer.getFeatureNames(), analyzer.getFeatureTypes());
+        String attributes = a.createAttributes(features.getFeatureNames(), features.getFeatureTypes());
         String classAttribute = a.createAttribute("class", "{positive, negative}");
         String data = a.createData(featuresList);
         List<String> lines = Arrays.asList(relation, attributes, classAttribute, data);
