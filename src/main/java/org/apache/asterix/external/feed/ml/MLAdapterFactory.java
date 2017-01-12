@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 import org.apache.asterix.common.cluster.ClusterPartition;
-import org.apache.asterix.common.config.IAsterixPropertiesProvider;
+import org.apache.asterix.common.config.IPropertiesProvider;
 import org.apache.asterix.common.library.ILibraryManager;
 import org.apache.asterix.external.api.IAdapterFactory;
 import org.apache.asterix.external.api.IDataSourceAdapter;
@@ -78,7 +78,7 @@ public class MLAdapterFactory implements IAdapterFactory {
                 ADMDataParser parser;
                 ITupleForwarder forwarder;
                 ArrayTupleBuilder tb;
-                IAsterixPropertiesProvider propertiesProvider = (IAsterixPropertiesProvider) ((NodeControllerService) ctx
+                IPropertiesProvider propertiesProvider = (IPropertiesProvider) ((NodeControllerService) ctx
                         .getJobletContext().getApplicationContext().getControllerService()).getApplicationContext()
                                 .getApplicationObject();
                 ClusterPartition nodePartition = propertiesProvider.getMetadataProperties().getNodePartitions()
