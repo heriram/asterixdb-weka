@@ -94,7 +94,7 @@ public class TextAnalyzer {
 
     private PorterStemmer stemmer = null;
 
-    private Features features;
+    private TwitterFeatures features;
 
     public TextAnalyzer() {
         this(Tokenizer.INSTANCE, null);
@@ -104,7 +104,7 @@ public class TextAnalyzer {
         this.tokenizer = tokenizer;
         termVector = new HashMap<>();
         this.stemmer = stemmer;
-        this.features = new Features();
+        this.features = new TwitterFeatures();
     }
 
     ITokenizer getTokenizer() {
@@ -191,19 +191,11 @@ public class TextAnalyzer {
             i++;
         }
 
-        features.check(terms);
+        features.extract(terms);
     }
 
-    public Integer[] getFeatureValues() {
-        return features.getFeatureValues();
-    }
-
-    public String[] getFeatureNames() {
-        return features.getFeatureNames();
-    }
-
-    public String[] getFeatureTypes() {
-        return features.getFeatureTypes();
+    public Features getFeatures() {
+        return features.getFeatures();
     }
 
     public static void main(String[] args) {
