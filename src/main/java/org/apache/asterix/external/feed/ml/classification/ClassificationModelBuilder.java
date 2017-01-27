@@ -21,17 +21,19 @@ package org.apache.asterix.external.feed.ml.classification;
 
 import java.io.File;
 import java.util.logging.Logger;
+
 import org.apache.asterix.external.feed.ml.tools.AsterixWekaDataHandler;
 import org.apache.asterix.external.feed.ml.tools.FeatureReader;
+import org.apache.asterix.external.feed.ml.tools.ResourceHelper;
 import weka.core.Instances;
 import weka.core.converters.JSONSaver;
 
 public class ClassificationModelBuilder {
-    private String inputArffFile = "/Volumes/USBStorage/dataset/weather.txt";
+    private String inputArffFile;
     private String inputFileName; // Name without extension
 
-    private String outputDir = "/Volumes/USBStorage/dataset";
-    private String classifierAlgorithm = "J48";
+    private String outputDir;
+    private String classifierAlgorithm;
 
     private final FeatureReader featureReader = new FeatureReader();
     static final Logger LOGGER = Logger.getLogger(ClassificationModelBuilder.class.getName());
@@ -82,17 +84,13 @@ public class ClassificationModelBuilder {
     }
 
     public static void main(String[] args) throws Exception {
-        // WEATHER
-        /*
-        String arffFile = "/Users/thormartin/asterix-machine-learning/src/main/resources/data/weather.txt";
-        String modelDir = "/Users/thormartin/asterix-machine-learning/src/main/resources/data";
-        String classifierAlgorithm = "RANDOM_FOREST";
-        */
+        //String DATA_DIR = ResourceHelper.getResourcePath("data");
+        String DATA_DIR = "src/main/resources/data/";
+        String DOMAIN = ResourceHelper.configLookup("domain");
+        String CLASSIFIER_ALGORITHM = ResourceHelper.configLookup("classifier-algorithm");
 
-        // TWITTER
-        String arffFile = "/Users/thormartin/asterix-machine-learning/src/main/resources/data/twitter.arff";
-        String modelDir = "/Users/thormartin/asterix-machine-learning/src/main/resources/data/models";
-        String classifierAlgorithm = "J48";
+        String modelDir = DATA_DIR + "models";
+        String arffFile = DATA_DIR + DOMAIN + ".arff";
 
         /*
         if (args.length < 2) {
@@ -115,7 +113,7 @@ public class ClassificationModelBuilder {
         }
         */
 
-        ClassificationModelBuilder cmb = new ClassificationModelBuilder(arffFile, modelDir, classifierAlgorithm);
+        ClassificationModelBuilder cmb = new ClassificationModelBuilder(arffFile, modelDir, CLASSIFIER_ALGORITHM);
         cmb.buildModel();
     }
 }

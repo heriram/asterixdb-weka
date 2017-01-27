@@ -228,6 +228,7 @@
                         <include>**/*.model</include>
                         <include>**/*.json</include>
                         <include>**/*.ddl</include>
+                        <include>**/*.properties</include>
                         <include>**/DISCLAIMER</include>
                         <include>**/NOTICE</include>
                         <include>**/LICENSE</include>

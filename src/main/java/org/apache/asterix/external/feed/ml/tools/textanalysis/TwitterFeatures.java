@@ -2,9 +2,7 @@ package org.apache.asterix.external.feed.ml.tools.textanalysis;
 
 import org.apache.asterix.external.feed.ml.tools.textanalysis.TextAnalyzer.Term;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class TwitterFeatures implements IFeatureExtractor  {
@@ -90,16 +88,18 @@ public class TwitterFeatures implements IFeatureExtractor  {
         private Set negative;
 
         public Lexicon() {
-            String lexiconDir = "/Users/thormartin/asterix-machine-learning/src/main/resources/data/sentimentLexicon/";
-            // TODO: move path to config-file or make relative
-            this.positive = loadLexicon(lexiconDir + "positive-words.txt");
-            this.negative = loadLexicon(lexiconDir + "negative-words.txt");
+            String positivePath = "data/sentimentLexicon/positive-words.txt";
+            String negativePath = "data/sentimentLexicon/negative-words.txt";
+            InputStream positiveInputStream = Lexicon.class.getClassLoader().getResourceAsStream(positivePath);
+            InputStream negativeInputStream = Lexicon.class.getClassLoader().getResourceAsStream(negativePath);
+            this.positive = loadLexicon(positiveInputStream);
+            this.negative = loadLexicon(negativeInputStream);
         }
 
-        private Set loadLexicon(String filePath) {
+        private Set loadLexicon(InputStream inputStream) {
             Set lexicon = new LinkedHashSet();
 
-            try(BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            try(BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
                 String line = reader.readLine();
                 while (line != null) {
                     if (!line.startsWith(";") && !line.isEmpty()) {

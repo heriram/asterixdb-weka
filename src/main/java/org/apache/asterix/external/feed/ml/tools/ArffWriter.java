@@ -45,9 +45,7 @@ public class ArffWriter {
         return result;
     }
 
-    public void writeArff(List<String> lines) {
-        // TODO: relative filePath or move to config-file
-        String filePath = "/Users/thormartin/asterix-machine-learning/src/main/resources/data/twitter.arff";
+    public void writeArff(List<String> lines, String filePath) {
         Path file = Paths.get(filePath);
         try {
             Files.write(file, lines, Charset.forName("UTF-8"));
@@ -56,12 +54,12 @@ public class ArffWriter {
 
 
     public static void main(String[] args) {
+        String filePath = ResourceHelper.getResourcePath("/data/twitter.arff");
+        String negative = ResourceHelper.getResourcePath("/data/twitter-data/training/negative.txt");
+        String positive = ResourceHelper.getResourcePath("/data/twitter-data/training/positive.txt");
 
         List<String> featuresList = new ArrayList<>();
         TextAnalyzer analyzer = new TextAnalyzer();
-
-        String negative = "/Users/thormartin/asterix-machine-learning/src/main/resources/data/twitter-data/training/negative.txt";
-        String positive = "/Users/thormartin/asterix-machine-learning/src/main/resources/data/twitter-data/training/positive.txt";
 
         for (String file : Arrays.asList(negative, positive)) {
 
@@ -86,7 +84,7 @@ public class ArffWriter {
         String classAttribute = a.createAttribute("class", "{positive, negative}");
         String data = a.createData(featuresList);
         List<String> lines = Arrays.asList(relation, attributes, classAttribute, data);
-        a.writeArff(lines);
+        a.writeArff(lines, filePath);
 
     }
 }

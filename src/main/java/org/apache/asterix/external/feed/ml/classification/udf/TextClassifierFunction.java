@@ -4,6 +4,7 @@ import org.apache.asterix.external.api.IExternalScalarFunction;
 import org.apache.asterix.external.api.IFunctionHelper;
 import org.apache.asterix.external.api.IJObject;
 import org.apache.asterix.external.feed.ml.classification.InstanceClassifier;
+import org.apache.asterix.external.feed.ml.tools.ResourceHelper;
 import org.apache.asterix.external.feed.ml.tools.textanalysis.IFeature;
 import org.apache.asterix.external.feed.ml.tools.textanalysis.TextAnalyzer;
 import org.apache.asterix.external.library.java.JObjects;
@@ -38,9 +39,11 @@ public class TextClassifierFunction implements IExternalScalarFunction {
 
     @Override
     public void initialize(IFunctionHelper functionHelper) throws Exception {
-        //TODO Get the necessary files
-        String modelFile = "data/models/J48.model";
-        String featureHeader = "data/twitter_header.json";
+        String CLASSIFIER_ALGORITHM = ResourceHelper.configLookup("classifier-algorithm");
+        String DOMAIN = ResourceHelper.configLookup("domain");
+
+        String modelFile = "data/models/" + CLASSIFIER_ALGORITHM + ".model";
+        String featureHeader = "data/" + DOMAIN + "_header.json";
 
         InputStream headerInputStream = TextClassifierFunction.class.getClassLoader().getResourceAsStream(featureHeader);
         InputStream modelInputStream = TextClassifierFunction.class.getClassLoader().getResourceAsStream(modelFile);
