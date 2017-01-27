@@ -21,7 +21,8 @@
         <local.hyracks.dir>/Users/thormartin/asterixdb/hyracks-fullstack</local.hyracks.dir>
         <managix.home>/Users/thormartin/managix</managix.home>
         <local.library>${project.basedir}/lib</local.library>
-        <asterix.version>0.8.9-SNAPSHOT</asterix.version>
+        <asterix.version>0.9.1-SNAPSHOT</asterix.version>
+        <hyracks.version>0.3.1-SNAPSHOT</hyracks.version>
     </properties>
 
     <!-- https://mvnrepository.com/artifact/nz.ac.waikato.cms.weka/weka-dev -->
@@ -84,44 +85,44 @@
         <dependency>
             <groupId>org.apache.hyracks</groupId>
             <artifactId>algebricks-common</artifactId>
-            <version>0.2.18-SNAPSHOT</version>
+            <version>${hyracks.version}</version>
             <scope>system</scope>
-            <systemPath>${local.hyracks.dir}/algebricks/algebricks-common/target/algebricks-common-0.2.18-SNAPSHOT.jar</systemPath>
+            <systemPath>${local.hyracks.dir}/algebricks/algebricks-common/target/algebricks-common-${hyracks.version}.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.apache.hyracks</groupId>
             <artifactId>hyracks-dataflow-std</artifactId>
-            <version>0.2.18-SNAPSHOT</version>
+            <version>${hyracks.version}</version>
             <scope>system</scope>
-            <systemPath>${local.hyracks.dir}/hyracks/hyracks-dataflow-std/target/hyracks-dataflow-std-0.2.18-SNAPSHOT.jar</systemPath>
+            <systemPath>${local.hyracks.dir}/hyracks/hyracks-dataflow-std/target/hyracks-dataflow-std-${hyracks.version}.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.apache.hyracks</groupId>
             <artifactId>hyracks-control-nc</artifactId>
-            <version>0.2.18-SNAPSHOT</version>
+            <version>${hyracks.version}</version>
             <scope>system</scope>
-            <systemPath>${local.hyracks.dir}/hyracks/hyracks-control/hyracks-control-nc/target/hyracks-control-nc-0.2.18-SNAPSHOT.jar</systemPath>
+            <systemPath>${local.hyracks.dir}/hyracks/hyracks-control/hyracks-control-nc/target/hyracks-control-nc-${hyracks.version}.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.apache.hyracks</groupId>
             <artifactId>hyracks-api</artifactId>
-            <version>0.2.18-SNAPSHOT</version>
+            <version>${hyracks.version}</version>
             <scope>system</scope>
-            <systemPath>${local.hyracks.dir}/hyracks/hyracks-api/target/hyracks-api-0.2.18-SNAPSHOT.jar</systemPath>
+            <systemPath>${local.hyracks.dir}/hyracks/hyracks-api/target/hyracks-api-${hyracks.version}.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.apache.hyracks</groupId>
             <artifactId>hyracks-dataflow-common</artifactId>
-            <version>0.2.18-SNAPSHOT</version>
+            <version>${hyracks.version}</version>
             <scope>system</scope>
-            <systemPath>${local.hyracks.dir}/hyracks/hyracks-dataflow-common/target/hyracks-dataflow-common-0.2.18-SNAPSHOT.jar</systemPath>
+            <systemPath>${local.hyracks.dir}/hyracks/hyracks-dataflow-common/target/hyracks-dataflow-common-${hyracks.version}.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.apache.hyracks</groupId>
             <artifactId>hyracks-control-common</artifactId>
-            <version>0.2.18-SNAPSHOT</version>
+            <version>${hyracks.version}</version>
             <scope>system</scope>
-            <systemPath>${local.hyracks.dir}/hyracks/hyracks-control/hyracks-control-common/target/hyracks-control-common-0.2.18-SNAPSHOT.jar</systemPath>
+            <systemPath>${local.hyracks.dir}/hyracks/hyracks-control/hyracks-control-common/target/hyracks-control-common-${hyracks.version}.jar</systemPath>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.json/json -->
         <dependency>
