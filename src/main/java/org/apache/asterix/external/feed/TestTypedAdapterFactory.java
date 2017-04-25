@@ -1,4 +1,4 @@
-package org.apache.asterix.external.feed;/*
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -16,13 +16,14 @@ package org.apache.asterix.external.feed;/*
  * specific language governing permissions and limitations
  * under the License.
  */
+package org.apache.asterix.external.feed;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
+
+import org.apache.asterix.common.api.IApplicationContext;
 import org.apache.asterix.common.cluster.ClusterPartition;
-import org.apache.asterix.common.config.IPropertiesProvider;
-import org.apache.asterix.common.library.ILibraryManager;
 import org.apache.asterix.external.api.IAdapterFactory;
 import org.apache.asterix.external.api.IDataSourceAdapter;
 import org.apache.asterix.external.api.IExternalDataSourceFactory;
@@ -34,10 +35,10 @@ import org.apache.asterix.external.util.FeedUtils;
 import org.apache.asterix.om.types.ARecordType;
 import org.apache.hyracks.algebricks.common.constraints.AlgebricksAbsolutePartitionConstraint;
 import org.apache.hyracks.algebricks.common.exceptions.AlgebricksException;
+import org.apache.hyracks.api.application.IServiceContext;
 import org.apache.hyracks.api.comm.IFrameWriter;
 import org.apache.hyracks.api.context.IHyracksTaskContext;
 import org.apache.hyracks.api.exceptions.HyracksDataException;
-import org.apache.hyracks.control.nc.NodeControllerService;
 import org.apache.hyracks.dataflow.common.comm.io.ArrayTupleBuilder;
 import org.apache.hyracks.dataflow.std.file.ITupleParser;
 import org.apache.hyracks.dataflow.std.file.ITupleParserFactory;
@@ -54,6 +55,8 @@ public class TestTypedAdapterFactory implements IAdapterFactory {
 
     private transient AlgebricksAbsolutePartitionConstraint clusterLocations;
 
+    private transient IServiceContext serviceContext;
+
     @Override
     public String getAlias() {
         return "test_typed";
@@ -61,13 +64,14 @@ public class TestTypedAdapterFactory implements IAdapterFactory {
 
     @Override
     public AlgebricksAbsolutePartitionConstraint getPartitionConstraint() throws AlgebricksException {
-        clusterLocations = IExternalDataSourceFactory.getPartitionConstraints(clusterLocations, 1);
+        clusterLocations = IExternalDataSourceFactory.getPartitionConstraints(
+                (IApplicationContext) serviceContext.getApplicationContext(), clusterLocations, 1);
         return clusterLocations;
     }
 
     @Override
     public IDataSourceAdapter createAdapter(IHyracksTaskContext ctx, int partition) throws HyracksDataException {
-        final String nodeId = ctx.getJobletContext().getApplicationContext().getNodeId();
+        final String nodeId = ctx.getJobletContext().getServiceContext().getNodeId();
         final ITupleParserFactory tupleParserFactory = new ITupleParserFactory() {
             private static final long serialVersionUID = 1L;
 
@@ -76,25 +80,15 @@ public class TestTypedAdapterFactory implements IAdapterFactory {
                 ADMDataParser parser;
                 ITupleForwarder forwarder;
                 ArrayTupleBuilder tb;
-                IPropertiesProvider propertiesProvider =
-                        (IPropertiesProvider) ((NodeControllerService) ctx
-                                .getJobletContext().getApplicationContext().getControllerService())
-                                        .getApplicationContext()
-                                        .getApplicationObject();
-                ClusterPartition nodePartition = propertiesProvider.getMetadataProperties().getNodePartitions()
-                        .get(nodeId)[0];
-                try {
-                    parser = new ADMDataParser(outputType, true);
-                    forwarder = DataflowUtils
-                            .getTupleForwarder(configuration,
-                                    FeedUtils.getFeedLogManager(ctx,
-                                            FeedUtils.splitsForAdapter(ExternalDataUtils.getDataverse(configuration),
-                                                    ExternalDataUtils.getFeedName(configuration), nodeId,
-                                                    nodePartition)));
-                    tb = new ArrayTupleBuilder(1);
-                } catch (Exception e) {
-                    throw new HyracksDataException(e);
-                }
+                IApplicationContext appCtx =
+                        (IApplicationContext) ctx.getJobletContext().getServiceContext().getApplicationContext();
+                ClusterPartition nodePartition = appCtx.getMetadataProperties().getNodePartitions().get(nodeId)[0];
+                parser = new ADMDataParser(outputType, true);
+                forwarder = DataflowUtils.getTupleForwarder(configuration,
+                        FeedUtils.getFeedLogManager(ctx,
+                                FeedUtils.splitsForAdapter(ExternalDataUtils.getDataverse(configuration),
+                                        ExternalDataUtils.getFeedName(configuration), nodeId, nodePartition)));
+                tb = new ArrayTupleBuilder(1);
                 return new ITupleParser() {
 
                     @Override
@@ -102,14 +96,14 @@ public class TestTypedAdapterFactory implements IAdapterFactory {
                         try {
                             parser.setInputStream(in);
                             forwarder.initialize(ctx, writer);
-                            /*while (true) {
+                            while (true) {
                                 tb.reset();
                                 if (!parser.parse(tb.getDataOutput())) {
                                     break;
                                 }
                                 tb.addFieldEndOffset();
                                 forwarder.addTuple(tb);
-                            }*/
+                            }
                             forwarder.close();
                         } catch (Exception e) {
                             throw new HyracksDataException(e);
@@ -126,7 +120,8 @@ public class TestTypedAdapterFactory implements IAdapterFactory {
     }
 
     @Override
-    public void configure(ILibraryManager context, Map<String, String> configuration) {
+    public void configure(IServiceContext serviceContext, Map<String, String> configuration) {
+        this.serviceContext = serviceContext;
         this.configuration = configuration;
     }
 
@@ -148,5 +143,4 @@ public class TestTypedAdapterFactory implements IAdapterFactory {
     public ARecordType getMetaType() {
         return null;
     }
-
 }

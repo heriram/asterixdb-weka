@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+/*
 package org.apache.asterix.external.feed.ml;
 
 import java.io.IOException;
@@ -102,14 +103,14 @@ public class MLAdapterFactory implements IAdapterFactory {
                         try {
                             parser.setInputStream(in);
                             forwarder.initialize(ctx, writer);
-                            /*while (true) {
+                            while (true) {
                                 tb.reset();
                                 if (!parser.parse(tb.getDataOutput())) {
                                     break;
                                 }
                                 tb.addFieldEndOffset();
                                 forwarder.addTuple(tb);
-                            }*/
+                            }
                             forwarder.close();
                         } catch (Exception e) {
                             throw new HyracksDataException(e);
@@ -147,3 +148,4 @@ public class MLAdapterFactory implements IAdapterFactory {
     }
 
 }
+*/

@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+/*
 package org.apache.asterix.external.feed.ml;
 
 import java.io.IOException;
@@ -173,3 +174,4 @@ public class MLAdapter extends FeedAdapter {
         return false;
     }
 }
+*/

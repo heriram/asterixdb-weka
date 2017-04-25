@@ -21,8 +21,8 @@
         <local.hyracks.dir>/Users/thormartin/asterixdb/hyracks-fullstack</local.hyracks.dir>
         <managix.home>/Users/thormartin/managix</managix.home>
         <local.library>${project.basedir}/lib</local.library>
-        <asterix.version>0.9.1-SNAPSHOT</asterix.version>
-        <hyracks.version>0.3.1-SNAPSHOT</hyracks.version>
+        <asterix.version>0.9.2-SNAPSHOT</asterix.version>
+        <hyracks.version>0.3.2-SNAPSHOT</hyracks.version>
     </properties>
 
     <!-- https://mvnrepository.com/artifact/nz.ac.waikato.cms.weka/weka-dev -->
@@ -123,6 +123,13 @@
             <version>${hyracks.version}</version>
             <scope>system</scope>
             <systemPath>${local.hyracks.dir}/hyracks/hyracks-control/hyracks-control-common/target/hyracks-control-common-${hyracks.version}.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hyracks</groupId>
+            <artifactId>hyracks-data</artifactId>
+            <version>${hyracks.version}</version>
+            <scope>system</scope>
+            <systemPath>${local.hyracks.dir}/hyracks/hyracks-data/hyracks-data-std/target/hyracks-data-std-${hyracks.version}.jar</systemPath>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.json/json -->
         <dependency>
