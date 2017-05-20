@@ -9,11 +9,13 @@ import org.apache.asterix.external.feed.ml.tools.textanalysis.IFeature;
 import org.apache.asterix.external.feed.ml.tools.textanalysis.TextAnalyzer;
 import org.apache.asterix.external.library.java.JObjects;
 import org.apache.asterix.external.library.java.JTypeTag;
+import org.apache.asterix.external.statistics.Statistics;
 import weka.core.DenseInstance;
 import weka.core.Instance;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Timer;
 import java.util.logging.Logger;
 
 /**
@@ -31,6 +33,7 @@ public class TextClassifierFunction implements IExternalScalarFunction {
     private InstanceClassifier instanceClassifier;
     private Instance instanceHolder;
     private TextAnalyzer analyzer;
+    private Statistics statistics;
 
     @Override
     public void deinitialize() {
@@ -52,6 +55,10 @@ public class TextClassifierFunction implements IExternalScalarFunction {
         instanceHolder = new DenseInstance(instanceClassifier.getDatasetHeader().numAttributes());
 
         this.analyzer = new TextAnalyzer();
+
+        this.statistics = new Statistics();
+        Timer timer = new Timer();
+        timer.schedule(this.statistics, 0, 2000);
     }
 
     @Override
@@ -71,6 +78,8 @@ public class TextClassifierFunction implements IExternalScalarFunction {
         classValueString.setValue(instanceClassifier.classify(instanceHolder));
 
         outputRecord.addField(instanceHolder.classAttribute().name(), classValueString);
+
+        statistics.addToCount(1);
 
         functionHelper.setResult(outputRecord);
 
