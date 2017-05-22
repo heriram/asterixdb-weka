@@ -38,9 +38,10 @@ def reduce_log(d, nodes=2):
 			count = 0
 			for i in range(0,nodes):
 				count += d[key+i]['count']
-			e[new_key]['time'] = d[key]['time']
-			e[new_key]['count'] = count
-			new_key += 1
+			if count > 0 or key == 0:
+				e[new_key]['time'] = d[key]['time']
+				e[new_key]['count'] = count
+				new_key += 1
 	return e
 
 
