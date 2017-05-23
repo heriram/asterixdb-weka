@@ -3,12 +3,6 @@ from collections import defaultdict
 from pprint import pprint
 import sys
 
-if len(sys.argv) != 2:
-	print('Usage: number of nodes as first parameter')
-	sys.exit(1)
-
-NODES = int(sys.argv[1])
-
 
 def read_log():
 	d = defaultdict(dict)
@@ -21,6 +15,16 @@ def read_log():
 		entry += 1
 	f.close()
 	return d
+
+
+def set_nodes(d):
+	nodes = 0
+	for key in d.keys():
+		if d[key]['count'] == 0:
+			nodes += 1
+		else:
+			break
+	return nodes
 
 
 def total_count(d):
@@ -80,6 +84,8 @@ def write_log(d):
 
 
 d = read_log()
+NODES = set_nodes(d)
+print('Nodes: ' + str(NODES))
 total_count = total_count(d)
 print('Total count: ' + str(total_count))
 d = reduce_log(d,NODES)
