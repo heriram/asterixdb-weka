@@ -15,6 +15,13 @@
 			<return_type>TextType</return_type>
 			<definition>org.apache.asterix.external.feed.ml.classification.udf.TextClassifierFactory</definition>
 		</libraryFunction>
+		<libraryFunction>
+			<function_type>SCALAR</function_type>
+			<name>baseline</name>
+			<arguments>TextType</arguments>
+			<return_type>TextType</return_type>
+			<definition>org.apache.asterix.external.feed.ml.classification.udf.BaselineFactory</definition>
+		</libraryFunction>
 	</libraryFunctions>
 	<libraryAdapters>
 		<libraryAdapter>
