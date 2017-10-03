@@ -2,11 +2,13 @@ package org.apache.asterix.external.feed.ml.classification.udf;
 
 import org.apache.asterix.external.api.IExternalScalarFunction;
 import org.apache.asterix.external.api.IFunctionHelper;
+import org.apache.asterix.external.api.IJObject;
 import org.apache.asterix.external.feed.ml.classification.InstanceClassifier;
 import org.apache.asterix.external.feed.ml.tools.ResourceHelper;
 import org.apache.asterix.external.feed.ml.tools.textanalysis.IFeature;
 import org.apache.asterix.external.feed.ml.tools.textanalysis.TextAnalyzer;
 import org.apache.asterix.external.library.java.JObjects;
+import org.apache.asterix.external.library.java.JTypeTag;
 import weka.core.DenseInstance;
 import weka.core.Instance;
 
@@ -83,6 +85,15 @@ public class FeatureExtractorFunction implements IExternalScalarFunction {
             // For simplicity ignore other types of features for now
         }
 
+        JObjects.JString classValueString;
+        if (inputRecord.getRecordType().doesFieldExist("class")) {
+            classValueString = (JObjects.JString) inputRecord.getValueByName("class");
+        } else {
+            classValueString = (JObjects.JString) functionHelper.getObject(JTypeTag.STRING);
+            classValueString.setValue("?");
+        }
+
+        outputRecord.addField("class", classValueString);
         functionHelper.setResult(outputRecord);
 
     }

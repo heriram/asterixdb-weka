@@ -7,11 +7,11 @@ import java.util.*;
 
 public class TwitterFeatures implements IFeatureExtractor  {
 
-    private Features.NumericFeature terms;
-    private Features.NumericFeature topics;
-    private Features.NumericFeature tags;
-    private Features.NumericFeature links;
-    private Features.NumericFeature sentiment;
+    private Features.NumericFeature terms; // Number of unique terms
+    private Features.NumericFeature topics; // Number of hashtags
+    private Features.NumericFeature tags; // Number of taged user
+    private Features.NumericFeature links; // Number of links in the tweet
+    private Features.NumericFeature sentiment; // Number of sentiment-related words
     private Lexicon lexicon;
     private Features features;
 
@@ -20,7 +20,7 @@ public class TwitterFeatures implements IFeatureExtractor  {
         topics = new Features.NumericFeature("topics", 0);
         tags = new Features.NumericFeature("tags", 0);
         links = new Features.NumericFeature("links", 0);
-        sentiment = new Features.NumericFeature("sentiment", 0);
+        sentiment = new Features.NumericFeature("sentiment_rate", 0);
         lexicon = new Lexicon();
         features = new Features(new ArrayList<IFeature>() {{
             add(terms);

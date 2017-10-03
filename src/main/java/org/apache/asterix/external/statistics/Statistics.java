@@ -19,7 +19,7 @@ public class Statistics extends TimerTask {
     private Long count;
 
     public Statistics() {
-        this.path = Paths.get("/Users/thormartin/asterix-machine-learning/src/main/resources/logs/tps.log");
+        this.path = Paths.get("/Users/heri/git/asterix-machine-learning/src/main/resources/logs/tps.log");
         this.count = 0L;
     }
 

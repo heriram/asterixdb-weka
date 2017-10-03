@@ -17,9 +17,9 @@
         </license>
     </licenses>
     <properties>
-        <local.asterix.dir>/Users/thormartin/asterixdb/asterixdb</local.asterix.dir>
-        <local.hyracks.dir>/Users/thormartin/asterixdb/hyracks-fullstack</local.hyracks.dir>
-        <managix.home>/Users/thormartin/managix</managix.home>
+        <local.asterix.dir>/Users/heri/git/apache/asterixdb/asterixdb</local.asterix.dir>
+        <local.hyracks.dir>/Users/heri/git/apache/asterixdb/hyracks-fullstack</local.hyracks.dir>
+        <managix.home>/Users/heri/asterix-master-mgmt</managix.home>
         <local.library>${project.basedir}/lib</local.library>
         <asterix.version>0.9.2-SNAPSHOT</asterix.version>
         <hyracks.version>0.3.2-SNAPSHOT</hyracks.version>

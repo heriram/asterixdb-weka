@@ -1,0 +1,17 @@
+use dataverse ML;
+create type TextType as open { text: string };
+create dataset TestDataset(TextType) primary key text;
+
+insert into dataset TestDataset
+([
+{"text":"A tall, dark stranger will have more fun than you."},
+{"text":"Snow Day -- stay home."},
+{"text":"Beware of a tall blond man with one black shoe."},
+{"text":"\"I understand this is your first dead client,\" Sabian was saying."},
+{"text":"The absurdity of the statement made me want to laugh but they don't call me Deadpan Allie and lie.   -- Pat Cadigan, \"Mindplayers\""}
+])
+
+use dataverse Metadata;
+for $ds in dataset DatasourceAdapter return $ds;
+for $ds in dataset Function return $ds;
+for $ds in dataset Library return $ds;

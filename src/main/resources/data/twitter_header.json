@@ -27,19 +27,19 @@
 				"weight" : 1.0
 			},
 			{
-				"name" : "sentiment",
+				"name" : "sentiment_rate",
 				"type" : "numeric",
 				"class" : false,
 				"weight" : 1.0
 			},
 			{
-				"name" : "class",
+				"name" : "sentiment",
 				"type" : "nominal",
 				"class" : true,
 				"weight" : 1.0,
 				"labels" : [
-					"positive",
-					"negative"
+					"Positive",
+					"Negative"
 				]
 			}
 		]

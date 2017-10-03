@@ -22,6 +22,29 @@
 			<return_type>TextType</return_type>
 			<definition>org.apache.asterix.external.feed.ml.classification.udf.BaselineFactory</definition>
 		</libraryFunction>
+		<libraryFunction>
+			<function_type>SCALAR</function_type>
+			<name>extractFeatures</name>
+			<arguments>TextType</arguments>
+			<return_type>FeatureType</return_type>
+			<definition>org.apache.asterix.external.feed.ml.classification.udf.FeatureExtractorFactory</definition>
+		</libraryFunction>
+
+		<libraryFunction>
+			<function_type>SCALAR</function_type>
+			<name>extractTweetFeatures</name>
+			<arguments>Tweet</arguments>
+			<return_type>FeatureType</return_type>
+			<definition>org.apache.asterix.external.feed.ml.classification.udf.FeatureExtractorFactory</definition>
+		</libraryFunction>
+		<libraryFunction>
+			<function_type>SCALAR</function_type>
+			<name>classifyTweet</name>
+			<arguments>Tweet</arguments>
+			<return_type>Tweet</return_type>
+			<definition>org.apache.asterix.external.feed.ml.classification.udf.TextClassifierFactory</definition>
+		</libraryFunction>
+
 	</libraryFunctions>
 	<libraryAdapters>
 		<libraryAdapter>
@@ -33,4 +56,6 @@
 			<factory_class>org.apache.asterix.external.feed.TestTypedAdapterFactory</factory_class>
 		</libraryAdapter>
 	</libraryAdapters>
+
+
 </externalLibrary>
